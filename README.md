@@ -26,6 +26,7 @@ and freely available to the aviation community.
 ## Installation
 
 ## Screenshots
+![Dashboard Screenshot](.uv_static/media/screenshots/dashboard.png)
 
 ## Future implementations
 - [ ] Export to CSV
