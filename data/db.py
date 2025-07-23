@@ -34,9 +34,9 @@ class DB:
     LOGGER.debug("Database connected.")
 
     @classmethod
-    async def get_history(cls) -> list[dict]:
+    async def get_flights(cls) -> list[dict]:
         """ Returns all rows from the Flights table. """
-        cursor = await cls._db.execute("SELECT * FROM Logbook")
+        cursor = await cls._db.execute("SELECT * FROM flights")
         rows = await cursor.fetchall()
         return [dict(row) for row in rows]
 

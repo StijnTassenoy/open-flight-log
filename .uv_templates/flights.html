@@ -13,16 +13,26 @@
         <thead class="thead-dark">
         <tr>
             <th>#</th>
-            <th>Remark</th>
-            <th>entryTime</th>
+            <th>Date</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Aircraft Type</th>
+            <th>Aircraft Registration</th>
+            <th>Pilot In Command</th>
+            <th>Remarks</th>
         </tr>
         </thead>
         <tbody>
         {% for row in rows %}
         <tr>
-            <th scope="row">{{ row[0] }}</th>
-            <td>{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
+            <th scope="row">{{ row["id"] }}</th>
+            <td>{{ row["date"] }}</td>
+            <td>{{ row["departure"] }}</td>
+            <td>{{ row["arrival"] }}</td>
+            <td>{{ row["aircraft_type"] }}</td>
+            <td>{{ row["aircraft_registration"] }}</td>
+            <td>{{ row["pilot_in_command"] }}</td>
+            <td>{{ row["remarks"] }}</td>
         </tr>
         {% endfor %}
         </tbody>

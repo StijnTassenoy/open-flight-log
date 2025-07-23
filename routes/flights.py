@@ -9,5 +9,5 @@ templates = Jinja2Templates(directory=".uv_templates")
 
 @router.get("/flights", response_class=HTMLResponse)
 async def get_flights(request: Request):
-    rows = await DB.get_history()
+    rows = await DB.get_flights()
     return templates.TemplateResponse("flights.html", {"request": request, "rows": rows})
