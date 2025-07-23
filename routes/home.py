@@ -7,4 +7,10 @@ templates = Jinja2Templates(directory=".uv_templates")
 
 @router.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    stats = {
+        "total_flights": 42,
+        "total_hours": 78.5,
+        "most_aircraft": "Cessna 172",
+        "last_flight": "2025-07-22"
+    }
+    return templates.TemplateResponse("index.html", {"request": request, "stats": stats})
