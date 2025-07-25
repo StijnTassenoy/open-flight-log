@@ -1,3 +1,6 @@
+# Python imports #
+import random
+
 # External Imports #
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
@@ -5,6 +8,8 @@ from starlette.templating import Jinja2Templates
 
 # OFL Imports #
 from data.db import DB
+from lib.constants import QUOTES_FILE
+from lib.helpers import read_json_file
 
 router = APIRouter()
 templates = Jinja2Templates(directory=".uv_templates")
@@ -21,4 +26,14 @@ async def home(request: Request):
         "most_aircraft": most_aircraft,
         "last_flight": last_flight_date.get("date")
     }
-    return templates.TemplateResponse("index.html", {"request": request, "stats": stats})
+    quote = await get_random_quote()
+    return templates.TemplateResponse("index.html", {"request": request, "stats": stats, "quote": quote})
+
+async def get_random_quote() -> str:
+    """ Get random quote from json file. """
+    try:
+        quotes = await read_json_file(QUOTES_FILE)
+        quotes = quotes.get("quotes")
+        return random.choice(quotes) if quotes else "Clear skies ahead!"
+    except Exception:
+        return "Fly safe, pilot."
