@@ -51,6 +51,16 @@ and freely available to the aviation community.
 
 ## Installation
 
+### Python/Local
+1. Download the repository and extract the archive. 
+2. Open a terminal in the open-flight-log folder.
+3. Install requirements via `pip install -r requirements.txt`
+4. Run app via `python main.py`
+5. Open a browser window and navigate to `localhost:9966`
+
+### Docker
+\**TBA*\*
+
 ## Screenshots
 ![Dashboard Screenshot](.uv_static/media/screenshots/dashboard.png)
 ![Add Flight Screenshot](.uv_static/media/screenshots/add_flight.png)
