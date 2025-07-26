@@ -42,7 +42,7 @@ class DB:
 
     @classmethod
     async def get_total_flight_count(cls) -> int:
-        """Returns the total number of flights recorded in the logbook."""
+        """ Returns the total number of flights recorded in the logbook. """
         _QUERY_GET_FLIGHT_COUNT = "SELECT COUNT(*) AS flight_count FROM flights"
 
         cursor = await cls._db.execute(_QUERY_GET_FLIGHT_COUNT)
@@ -55,7 +55,7 @@ class DB:
 
     @classmethod
     async def get_total_flight_time(cls) -> tuple[int, int]:
-        """Calculates total flight time from the database."""
+        """ Calculates total flight time from the database. """
         _QUERY_GET_SUM_OF_FLIGHT_TIME = """
             SELECT 
                 COALESCE(SUM(total_flight_time_hrs), 0),
@@ -110,6 +110,72 @@ class DB:
             return {}
 
         return dict(row)
+
+    @classmethod
+    async def insert_flight(cls, flight_data: dict):
+        insert_query = """
+            INSERT INTO flights (
+                date, dept_place, dept_time, arrv_place, arrv_time,
+                aircraft_type, aircraft_registration, single_pilot_time,
+                multi_pilot_time_hrs, multi_pilot_time_min,
+                total_flight_time_hrs, total_flight_time_min,
+                pilot_in_command, landings_day, landings_night,
+                oct_night_hrs, oct_night_min, oct_ifr_hrs, oct_ifr_mins,
+                pft_pic_hrs, pft_pic_min, pft_copilot_hrs, pft_copilot_min,
+                pft_dual_hrs, pft_dual_min, pft_instructor_hrs, pft_instructor_min,
+                fstd_date, fstd_type, fstd_total_time_sess_hrs, fstd_total_time_sess_min,
+                remarks
+            ) VALUES (
+                ?, ?, ?, ?, ?,
+                ?, ?, ?,
+                ?, ?,
+                ?, ?,
+                ?, ?, ?,
+                ?, ?, ?, ?,
+                ?, ?, ?, ?,
+                ?, ?, ?, ?,
+                ?, ?, ?, ?,
+                ?
+            )
+        """
+
+        values = (
+            flight_data["date"],
+            flight_data["dept_place"],
+            flight_data["dept_time"],
+            flight_data["arrv_place"],
+            flight_data["arrv_time"],
+            flight_data.get("aircraft_type"),
+            flight_data.get("aircraft_registration"),
+            flight_data.get("single_pilot_time"),
+            flight_data.get("multi_pilot_time_hrs"),
+            flight_data["multi_pilot_time_min"],
+            flight_data.get("total_flight_time_hrs"),
+            flight_data["total_flight_time_min"],
+            flight_data["pilot_in_command"],
+            flight_data.get("landings_day"),
+            flight_data.get("landings_night"),
+            flight_data.get("oct_night_hrs"),
+            flight_data["oct_night_min"],
+            flight_data.get("oct_ifr_hrs"),
+            flight_data["oct_ifr_mins"],
+            flight_data.get("pft_pic_hrs"),
+            flight_data["pft_pic_min"],
+            flight_data.get("pft_copilot_hrs"),
+            flight_data.get("pft_copilot_min"),
+            flight_data.get("pft_dual_hrs"),
+            flight_data.get("pft_dual_min"),
+            flight_data.get("pft_instructor_hrs"),
+            flight_data.get("pft_instructor_min"),
+            flight_data.get("fstd_date"),
+            flight_data.get("fstd_type"),
+            flight_data.get("fstd_total_time_sess_hrs"),
+            flight_data.get("fstd_total_time_sess_min"),
+            flight_data.get("remarks"),
+        )
+
+        await cls._db.execute(insert_query, values)
+        await cls._db.commit()
 
     @classmethod
     async def dispose(cls):

@@ -53,6 +53,7 @@ and freely available to the aviation community.
 
 ## Screenshots
 ![Dashboard Screenshot](.uv_static/media/screenshots/dashboard.png)
+![Add Flight Screenshot](.uv_static/media/screenshots/add_flight.png)
 
 ## Future implementations
 - [ ] Export to CSV
