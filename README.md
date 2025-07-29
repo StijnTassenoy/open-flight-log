@@ -65,5 +65,13 @@ and freely available to the aviation community.
 ![Dashboard Screenshot](.uv_static/media/screenshots/dashboard.png)
 ![Add Flight Screenshot](.uv_static/media/screenshots/add_flight.png)
 
+## Current functions
+- [X] Add flight logs
+- [X] Query all flight logs table
+- [X] Pilot stats dashboard
+- [X] Export flight logs to CSV
+
 ## Future implementations
-- [ ] Export to CSV
+- [ ] Edit individual flight log
+- [ ] Remove individual flight log
+- [ ] Airport autofill
