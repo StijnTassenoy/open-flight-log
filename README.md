@@ -75,3 +75,4 @@ and freely available to the aviation community.
 - [ ] Edit individual flight log
 - [ ] Remove individual flight log
 - [ ] Airport autofill
+- [ ] Dockerfile
