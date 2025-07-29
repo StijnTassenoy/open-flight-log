@@ -10,3 +10,4 @@ _  / / /__  __ \  _ \_  __ \     __  /_   __  /__  /__  __ `/_  __ \  __/    __ 
 DATABASE_FILE = "run/flight_log.db"
 SCHEMA_FILE = "data/db.sql"
 QUOTES_FILE = "run/quotes.json"
+CSV_SAVE_LOCATION = "run/flights_export.csv"

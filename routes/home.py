@@ -2,13 +2,14 @@
 import random
 
 # External Imports #
+import pandas as pd
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
 from starlette.templating import Jinja2Templates
 
 # OFL Imports #
 from data.db import DB
-from lib.constants import QUOTES_FILE
+from lib.constants import QUOTES_FILE, CSV_SAVE_LOCATION
 from lib.helpers import read_json_file
 
 router = APIRouter()
@@ -37,3 +38,10 @@ async def get_random_quote() -> str:
         return random.choice(quotes) if quotes else "Clear skies ahead!"
     except Exception:
         return "Fly safe, pilot."
+
+@router.get("/export", response_class=FileResponse)
+async def export_csv():
+    data = await DB.get_flights()
+    df = pd.DataFrame(data)
+    df.to_csv(CSV_SAVE_LOCATION, index=False)
+    return FileResponse(path=CSV_SAVE_LOCATION, filename="flights_export.csv", media_type="text/csv")

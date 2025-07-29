@@ -1,5 +1,6 @@
 aiofiles
 aiosqlite
 fastapi
+pandas
 starlette
 uvicorn
