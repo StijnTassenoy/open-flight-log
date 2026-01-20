@@ -1,6 +1,8 @@
 aiofiles
 aiosqlite
 fastapi
+Jinja2
 pandas
+python-multipart
 starlette
 uvicorn
