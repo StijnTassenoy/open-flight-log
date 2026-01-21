@@ -6,7 +6,13 @@
 
 {% block body %}
 <div class="container mt-4">
+
   <h2>New Flight Entry</h2>
+
+  <hr class="my-4">
+
+  <h5>Flight General Information</h5>
+
   <form method="post" action="/flights/add">
     <div class="row">
       <div class="col-md-4">
@@ -18,29 +24,33 @@
         <input type="text" class="form-control" name="dept_place" required>
       </div>
       <div class="col-md-4">
-        <label>Departure Time</label>
-        <input type="number" class="form-control" name="dept_time" min="0" max="2359" required>
+        <label>Departure Time (UTC)</label>
+        <input type="time" class="form-control" name="dept_time" required>
       </div>
       <div class="col-md-4">
         <label>Arrival Place</label>
         <input type="text" class="form-control" name="arrv_place" required>
       </div>
       <div class="col-md-4">
-        <label>Arrival Time</label>
-        <input type="number" class="form-control" name="arrv_time" min="0" max="2359" required>
+        <label>Arrival Time (UTC)</label>
+        <input type="time" class="form-control" name="arrv_time" required>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-4">
-        <label>Aircraft Make, Model Variant</label>
+        <label>Aircraft Make, Model, Variant</label>
         <input type="text" class="form-control" name="aircraft_type">
       </div>
       <div class="col-md-6">
         <label>Aircraft Registration</label>
-        <input type="text" class="form-control" name="aircraft_registration">
+        <input type="text" class="form-control" name="aircraft_registration" oninput="this.value = this.value.toUpperCase()">
       </div>
     </div>
+
+    <hr class="my-4">
+
+    <h5>Flight Time</h5>
 
     <div class="row mt-3">
       <div class="col-md-6">
@@ -53,28 +63,17 @@
       </div>
     </div>
 
-    <hr class="my-4">
-
-    <h5>Flight Time</h5>
     <div class="row">
       <div class="col-md-3">
-        <label>Multi Pilot Time (hrs)</label>
-        <input type="number" class="form-control" name="multi_pilot_time_hrs">
-      </div>
-      <div class="col-md-3">
-        <label>Multi Pilot Time (min)</label>
-        <input type="number" class="form-control" name="multi_pilot_time_min" required>
+        <label>Multi Pilot Time</label>
+        <input type="time" class="form-control" name="multi_pilot_time">
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-3">
-        <label>Total Flight Time (hrs)</label>
-        <input type="number" class="form-control" name="total_flight_time_hrs">
-      </div>
-      <div class="col-md-3">
-        <label>Total Flight Time (min)</label>
-        <input type="number" class="form-control" name="total_flight_time_min" required>
+        <label>Total Flight Time</label>
+        <input type="time" class="form-control" name="total_flight_time" required>
       </div>
       <div class="col-md-6">
         <label>Pilot In Command</label>
@@ -98,20 +97,12 @@
     <h5>Octal Time</h5>
     <div class="row">
       <div class="col-md-3">
-        <label>Night Time (hrs)</label>
-        <input type="number" class="form-control" name="oct_night_hrs">
+        <label>Night Time</label>
+        <input type="time" class="form-control" name="oct_night">
       </div>
       <div class="col-md-3">
-        <label>Night Time (min)</label>
-        <input type="number" class="form-control" name="oct_night_min" required>
-      </div>
-      <div class="col-md-3">
-        <label>IFR Time (hrs)</label>
-        <input type="number" class="form-control" name="oct_ifr_hrs">
-      </div>
-      <div class="col-md-3">
-        <label>IFR Time (min)</label>
-        <input type="number" class="form-control" name="oct_ifr_mins" required>
+        <label>IFR Time</label>
+        <input type="time" class="form-control" name="oct_ifr">
       </div>
     </div>
 
@@ -120,39 +111,20 @@
     <h5>Performance Time</h5>
     <div class="row">
       <div class="col-md-2">
-        <label>PIC (hrs)</label>
-        <input type="number" class="form-control" name="pft_pic_hrs">
+        <label>PIC</label>
+        <input type="time" class="form-control" name="pft_pic" required>
       </div>
       <div class="col-md-2">
-        <label>PIC (min)</label>
-        <input type="number" class="form-control" name="pft_pic_min" required>
-      </div>
-      <div class="col-md-2">
-        <label>Co-Pilot (hrs)</label>
-        <input type="number" class="form-control" name="pft_copilot_hrs">
-      </div>
-      <div class="col-md-2">
-        <label>Co-Pilot (min)</label>
-        <input type="number" class="form-control" name="pft_copilot_min">
+        <label>Co-Pilot</label>
+        <input type="time" class="form-control" name="pft_copilot">
       </div>
       <div class="col-md-2">
         <label>Dual (hrs)</label>
-        <input type="number" class="form-control" name="pft_dual_hrs">
+        <input type="time" class="form-control" name="pft_dual">
       </div>
       <div class="col-md-2">
-        <label>Dual (min)</label>
-        <input type="number" class="form-control" name="pft_dual_min">
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-2">
-        <label>Instructor (hrs)</label>
-        <input type="number" class="form-control" name="pft_instructor_hrs">
-      </div>
-      <div class="col-md-2">
-        <label>Instructor (min)</label>
-        <input type="number" class="form-control" name="pft_instructor_min">
+        <label>Instructor</label>
+        <input type="time" class="form-control" name="pft_instructor">
       </div>
     </div>
 
@@ -169,12 +141,8 @@
         <input type="text" class="form-control" name="fstd_type">
       </div>
       <div class="col-md-2">
-        <label>FSTD Time (hrs)</label>
-        <input type="number" class="form-control" name="fstd_total_time_sess_hrs">
-      </div>
-      <div class="col-md-2">
-        <label>FSTD Time (min)</label>
-        <input type="number" class="form-control" name="fstd_total_time_sess_min">
+        <label>FSTD Time</label>
+        <input type="time" class="form-control" name="fstd_total_time_sess">
       </div>
     </div>
 
@@ -183,7 +151,9 @@
       <textarea class="form-control" name="remarks" rows="3"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-4">Submit Flight</button>
+    <div class="d-grid">
+      <button type="submit" class="btn btn-dark mt-4">Submit Flight</button>
+    </div>
   </form>
 </div>
 {% endblock %}

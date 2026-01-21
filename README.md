@@ -74,9 +74,10 @@ and freely available to the aviation community.
 - [X] Query all flight logs table
 - [X] Pilot stats dashboard
 - [X] Export flight logs to CSV
+- [X] Dockerfile
 
 ## Future implementations
 - [ ] Edit individual flight log
 - [ ] Remove individual flight log
 - [ ] Airport autofill
-- [ ] Dockerfile
+

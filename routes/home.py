@@ -4,7 +4,7 @@ import random
 # External Imports #
 import pandas as pd
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from starlette.templating import Jinja2Templates
 
 # OFL Imports #
@@ -31,7 +31,7 @@ async def home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "stats": stats, "quote": quote})
 
 async def get_random_quote() -> str:
-    """ Get random quote from json file. """
+    """ Get random quote from JSON file. """
     try:
         quotes = await read_json_file(QUOTES_FILE)
         quotes = quotes.get("quotes")

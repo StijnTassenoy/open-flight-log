@@ -7,58 +7,83 @@
 {% block body %}
 
 <div class="container-fluid mt-4">
-  <h2 class="mb-3">Flight History</h2>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Flight History</h2>
+  </div>
+
   <div class="table-responsive" style="overflow-x: auto; max-height: 80vh;">
     <table class="table table-bordered table-hover table-sm text-nowrap">
-      <thead class="thead-dark">
+      <thead class="table-dark sticky-top">
         <tr>
           <th>#</th>
           <th>Date</th>
-          <th>Departure (Place/Time)</th>
-          <th>Arrival (Place/Time)</th>
+          <th>Departure</th>
+          <th>Arrival</th>
           <th>Aircraft Type</th>
           <th>Registration</th>
-          <th>SP Type (SE/ME)</th>
-          <th>MP Time (hrs:min)</th>
-          <th>Total Time (hrs:min)</th>
-          <th>PIC</th>
-          <th>Landings (Day/Night)</th>
-          <th>Night (hrs:min)</th>
-          <th>IFR (hrs:min)</th>
-          <th>PIC (hrs:min)</th>
-          <th>Co-Pilot (hrs:min)</th>
-          <th>Dual (hrs:min)</th>
-          <th>Instructor (hrs:min)</th>
-          <th>FSTD (Date/Type)</th>
-          <th>FSTD Time (hrs:min)</th>
+          <th>SP Type</th>
+          <th>MP Time</th>
+          <th>Total Time</th>
+          <th>PIC Name</th>
+          <th>Landings D/N</th>
+          <th>Night</th>
+          <th>IFR</th>
+          <th>PIC Time</th>
+          <th>Co-Pilot</th>
+          <th>Dual</th>
+          <th>Instructor</th>
+          <th>FSTD</th>
+          <th>FSTD Time</th>
           <th>Remarks</th>
         </tr>
       </thead>
       <tbody>
-        {% for row in rows %}
-        <tr>
-          <td>{{ row.id }}</td>
-          <td>{{ row.date }}</td>
-          <td>{{ row.dept_place }}<br>{{ row.dept_time }}</td>
-          <td>{{ row.arrv_place }}<br>{{ row.arrv_time }}</td>
-          <td>{{ row.aircraft_type }}</td>
-          <td>{{ row.aircraft_registration }}</td>
-          <td>{{ row.single_pilot_time }}</td>
-          <td>{{ row.multi_pilot_time_hrs }}:{{ row.multi_pilot_time_min }}</td>
-          <td>{{ row.total_flight_time_hrs }}:{{ row.total_flight_time_min }}</td>
-          <td>{{ row.pilot_in_command }}</td>
-          <td>{{ row.landings_day }}/{{ row.landings_night }}</td>
-          <td>{{ row.oct_night_hrs }}:{{ row.oct_night_min }}</td>
-          <td>{{ row.oct_ifr_hrs }}:{{ row.oct_ifr_mins }}</td>
-          <td>{{ row.pft_pic_hrs }}:{{ row.pft_pic_min }}</td>
-          <td>{{ row.pft_copilot_hrs or 0 }}:{{ row.pft_copilot_min or 0 }}</td>
-          <td>{{ row.pft_dual_hrs or 0 }}:{{ row.pft_dual_min or 0 }}</td>
-          <td>{{ row.pft_instructor_hrs or 0 }}:{{ row.pft_instructor_min or 0 }}</td>
-          <td>{{ row.fstd_date or '' }}<br>{{ row.fstd_type or '' }}</td>
-          <td>{{ row.fstd_total_time_sess_hrs or 0 }}:{{ row.fstd_total_time_sess_min or 0 }}</td>
-          <td>{{ row.remarks }}</td>
-        </tr>
-        {% endfor %}
+        {% if rows %}
+          {% for row in rows %}
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.date }}</td>
+            <td>
+              <strong>{{ row.dept_place }}</strong><br>
+              <small class="text-muted">{{ row.dept_time }}</small>
+            </td>
+            <td>
+              <strong>{{ row.arrv_place }}</strong><br>
+              <small class="text-muted">{{ row.arrv_time }}</small>
+            </td>
+            <td>{{ row.aircraft_type or '—' }}</td>
+            <td>{{ row.aircraft_registration or '—' }}</td>
+            <td>{{ row.single_pilot_time or '—' }}</td>
+            <td>{{ row.multi_pilot_time or '—' }}</td>
+            <td><strong>{{ row.total_flight_time}}</strong></td>
+            <td>{{ row.pilot_in_command }}</td>
+            <td>{{ row.landings_day or 0 }}/{{ row.landings_night or 0 }}</td>
+            <td>{{ row.oct_night or '—' }}</td>
+            <td>{{ row.oct_ifr or '—' }}</td>
+            <td>{{ row.pft_pic or '—' }}</td>
+            <td>{{ row.pft_copilot or '—' }}</td>
+            <td>{{ row.pft_dual or '—' }}</td>
+            <td>{{ row.pft_instructor or '—' }}</td>
+            <td>
+              {% if row.fstd_date %}
+                {{ row.fstd_date }}<br>
+                <small>{{ row.fstd_type }}</small>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+            <td>{{ row.fstd_total_time_sess or '—' }}</td>
+            <td>{{ row.remarks or '' }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="20" class="text-center text-muted py-5">
+              <p class="mb-2">No flights recorded yet.</p>
+              <a href="/flights/add" class="btn btn-sm btn-outline-primary">Add Your First Flight</a>
+            </td>
+          </tr>
+        {% endif %}
       </tbody>
     </table>
   </div>
