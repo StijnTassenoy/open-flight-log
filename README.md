@@ -58,8 +58,12 @@ and freely available to the aviation community.
 4. Run app via `python main.py`
 5. Open a browser window and navigate to `localhost:9966`
 
-### Docker
-\**TBA*\*
+### Docker Hub / Container
+[stassenoy/open-flight-log](https://hub.docker.com/r/stassenoy/open-flight-log)
+1. docker pull stassenoy/open-flight-log
+   - Optional: add a shared path for: `/run` so that the database is persistent.
+   - Optional: Change the host port for container port `9966`
+2. Open a browser window and navigate to `http://[IP]:[PORT:9966]/`
 
 ## Screenshots
 ![Dashboard Screenshot](.uv_static/media/screenshots/dashboard.png)
