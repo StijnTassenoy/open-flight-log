@@ -14,6 +14,7 @@
   <h5>Flight General Information</h5>
 
   <form method="post" action="/flights/add">
+    <input type="hidden" name="csrf_token" value="{{ request.state.csrf_token }}">
     <div class="row">
       <div class="col-md-4">
         <label>Date</label>

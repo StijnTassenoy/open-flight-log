@@ -11,6 +11,11 @@ from fastapi.templating import Jinja2Templates
 from data.db import DB
 from lib.logger import LOGGER
 from lib.constants import WELCOME_MESSAGE
+from lib.security import (
+    SecurityHeadersMiddleware,
+    CSRFTokenMiddleware,
+    RateLimitMiddleware,
+)
 from routes.home import router as home_router
 from routes.flights import router as flights_router
 
@@ -30,6 +35,9 @@ async def lifespan(fastapi_app: FastAPI):
     await DB.dispose()
 
 app = FastAPI(title="Open Flight Log", lifespan=lifespan)
+app.add_middleware(RateLimitMiddleware)
+app.add_middleware(CSRFTokenMiddleware)
+app.add_middleware(SecurityHeadersMiddleware)
 app.mount("/static", StaticFiles(directory=".uv_static"), name="static")
 templates = Jinja2Templates(directory=".uv_templates")
 

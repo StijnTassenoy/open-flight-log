@@ -1,15 +1,16 @@
 # Python imports #
+import io
 import random
 
 # External Imports #
 import pandas as pd
 from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, StreamingResponse
 from starlette.templating import Jinja2Templates
 
 # OFL Imports #
 from data.db import DB
-from lib.constants import QUOTES_FILE, CSV_SAVE_LOCATION
+from lib.constants import QUOTES_FILE
 from lib.helpers import read_json_file
 
 router = APIRouter()
@@ -39,9 +40,15 @@ async def get_random_quote() -> str:
     except Exception:
         return "Fly safe, pilot."
 
-@router.get("/export", response_class=FileResponse)
+@router.get("/export")
 async def export_csv():
     data = await DB.get_flights()
     df = pd.DataFrame(data)
-    df.to_csv(CSV_SAVE_LOCATION, index=False)
-    return FileResponse(path=CSV_SAVE_LOCATION, filename="flights_export.csv", media_type="text/csv")
+    buffer = io.StringIO()
+    df.to_csv(buffer, index=False)
+    buffer.seek(0)
+    return StreamingResponse(
+        iter([buffer.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="flights_export.csv"'},
+    )

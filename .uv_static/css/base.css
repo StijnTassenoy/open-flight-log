@@ -1,5 +1,15 @@
 :root {
-    --whte: #fff;
-    --blck: #000;
+
+    --ofl-bg: #0f172a;
+    --ofl-surface: #1e293b;
+    --ofl-border: #334155;
+    --ofl-text: #e2e8f0;
+    --ofl-muted: #94a3b8;
+    --ofl-accent: #38bdf8;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
 }
 

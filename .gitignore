@@ -144,6 +144,14 @@ ENV/
 env.bak/
 venv.bak/
 
+# OFL runtime artifacts
+run/flight_log.db
+run/flight_log.db-journal
+run/flight_log.db-wal
+run/flight_log.db-shm
+run/flights_export.csv
+ofl_app.log
+
 # Spyder project settings
 .spyderproject
 .spyproject
