@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Create the non-root user/group used to run the app
-RUN groupadd -g "${PGID}" ofl \
+RUN groupadd -g "${PGID}" -o ofl \
     && useradd -u "${PUID}" -g "${PGID}" -m -s /bin/bash ofl \
     && mkdir -p /app/run \
     && chown -R "${PUID}:${PGID}" /app
